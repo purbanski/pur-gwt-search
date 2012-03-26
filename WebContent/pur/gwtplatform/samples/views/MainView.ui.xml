@@ -1,0 +1,25 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
+	ui:generateKeys='com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator'
+	ui:generateLocales='default' xmlns:p1="urn:import:com.google.gwt.user.cellview.client">
+
+	<g:HTMLPanel width="850px" height="850px">
+		<g:LayoutPanel width="850px" height="819px">
+			<g:layer left="102px" width="437px" top="136px" height="433px">
+				<g:VerticalPanel ui:field="panel1" borderWidth="2">
+					<g:Label text="Données stoquées" ui:field="labelStock" styleName="gwt-RichTextToolbar"/>
+					<p1:DataGrid width="400px" height="300px" ui:field="dataGrid" title="Les données stoquées dans le Local Storage"/>
+				</g:VerticalPanel>
+			</g:layer>
+			<g:layer left="102px" width="343px" top="89px" height="342px">
+				<g:VerticalPanel spacing="10" borderWidth="2">
+					<g:Button text="Ouvrir popup de recherche" ui:field="popupButton" width="190px"/>
+				</g:VerticalPanel>
+			</g:layer>
+		</g:LayoutPanel>
+		
+	</g:HTMLPanel>
+</ui:UiBinder>
