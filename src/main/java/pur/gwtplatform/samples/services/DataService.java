@@ -9,6 +9,7 @@ import org.fusesource.restygwt.client.Resource;
 import pur.gwtplatform.samples.events.DicoCompleteEvent;
 import pur.gwtplatform.samples.events.SearchCompleteEvent;
 import pur.gwtplatform.samples.model.Data;
+import pur.gwtplatform.samples.model.ElementResult;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
@@ -16,6 +17,7 @@ import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+
 
 public class DataService {
 	@Inject
@@ -45,17 +47,19 @@ public class DataService {
 		});
 	}
 	
-	public void getDataIndex(final List<Data> liste, String query) {
+	public void getDataIndex(final List<ElementResult> liste, String query) {
 		Resource resource = new Resource("/rest/mp/search/" +query + ".json");
 		resource.get().send(new JsonCallback() {
 			public void onSuccess(Method method, JSONValue response) {
 				JSONObject keys = response.isObject().get("listSearchResult").isObject();
 				array = keys.get("listSearchResult").isArray();
 				for (int i = 0; i < array.size(); i++) {
+					ElementResult elementResult = new ElementResult();
 					JSONObject jsObject = array.get(i).isObject();
-					String value = jsObject.get("highs").isString().stringValue();
-					String key = jsObject.get("k").isString().stringValue();
-					liste.add(new Data(key, value));
+					elementResult.setL(jsObject.get("l").isString().stringValue());
+					elementResult.setK(jsObject.get("k").isString().stringValue());
+				//	elementResult.setK(jsObject.get("h").isString().stringValue());
+					liste.add(elementResult);
 				}
 				eventBus.fireEvent(new SearchCompleteEvent());
 			}

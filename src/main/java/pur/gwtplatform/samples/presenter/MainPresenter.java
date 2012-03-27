@@ -7,7 +7,7 @@ import pur.gwtplatform.samples.events.SearchCompleteEvent;
 import pur.gwtplatform.samples.events.SearchCompleteEvent.SearchCompleteHandler;
 import pur.gwtplatform.samples.events.UpdateDataGridEvent;
 import pur.gwtplatform.samples.events.UpdateDataGridEvent.UpdateDataGridHandler;
-import pur.gwtplatform.samples.model.Data;
+import pur.gwtplatform.samples.model.ElementResult;
 import pur.gwtplatform.samples.modules.NameTokens;
 import pur.gwtplatform.samples.services.DataService;
 import pur.gwtplatform.samples.views.IMainView;
@@ -30,28 +30,30 @@ import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 import com.gwtplatform.mvp.client.proxy.RevealRootPopupContentEvent;
 
+
+
 public class MainPresenter extends Presenter<IMainView, MainPresenter.MyProxy> {
 	private EventBus eventBus;
 	private final PlaceManager placeManager;
-	private List<Data> liste = new ArrayList<Data>(10);
+	private List<ElementResult> liste = new ArrayList<ElementResult>(10);
 	private DataGrid dataGrid = null;
 	private DeleteDialogPresenter deleteDialogPresenter;
 	@Inject
 	private DataService dataService;
 
-	private TextColumn<Data> idColumn = new TextColumn<Data>() {
+	private TextColumn<ElementResult> idColumn = new TextColumn<ElementResult>() {
 
 		@Override
-		public String getValue(Data data) {
-			return data.getKey();
+		public String getValue(ElementResult data) {
+			return data.getK();
 		}
 	};
 
-	private TextColumn<Data> valueColumn = new TextColumn<Data>() {
+	private TextColumn<ElementResult> valueColumn = new TextColumn<ElementResult>() {
 
 		@Override
-		public String getValue(Data data) {
-			return data.getValue();
+		public String getValue(ElementResult data) {
+			return data.getL();
 		}
 	};
 
@@ -122,12 +124,12 @@ public class MainPresenter extends Presenter<IMainView, MainPresenter.MyProxy> {
 	private void initDataGrid() {
 
 		dataGrid = getView().getDataGrid();
-		dataGrid.setSize("950px", "800px");
-		dataGrid.addColumn(idColumn, "K");
-		dataGrid.addColumn(valueColumn, "Highs");
+		dataGrid.setSize("1050px", "800px");
+		dataGrid.addColumn(idColumn, "Sous-catégorie NAF3142");
+		dataGrid.addColumn(valueColumn, "Libellé NAF575");
 		dataGrid.setRowData(liste);
-		dataGrid.setColumnWidth(idColumn, "100px");
-		dataGrid.setColumnWidth(valueColumn, "850px");
+		dataGrid.setColumnWidth(idColumn, "250px");
+		dataGrid.setColumnWidth(valueColumn, "800px");
 	}
 
 	private void openPopupSupp() {
