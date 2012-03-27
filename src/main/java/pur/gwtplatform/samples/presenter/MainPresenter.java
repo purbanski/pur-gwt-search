@@ -3,12 +3,10 @@ package pur.gwtplatform.samples.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fusesource.restygwt.client.JsonCallback;
-import org.fusesource.restygwt.client.Method;
-import org.fusesource.restygwt.client.Resource;
-
-import pur.gwtplatform.samples.events.UpdateLocalStorageEvent;
-import pur.gwtplatform.samples.events.UpdateLocalStorageEvent.InsertCompleteHandler;
+import pur.gwtplatform.samples.events.SearchCompleteEvent;
+import pur.gwtplatform.samples.events.SearchCompleteEvent.SearchCompleteHandler;
+import pur.gwtplatform.samples.events.UpdateDataGridEvent;
+import pur.gwtplatform.samples.events.UpdateDataGridEvent.UpdateDataGridHandler;
 import pur.gwtplatform.samples.model.Data;
 import pur.gwtplatform.samples.modules.NameTokens;
 import pur.gwtplatform.samples.services.DataService;
@@ -17,13 +15,8 @@ import pur.gwtplatform.samples.views.IMainView;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.GwtEvent.Type;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONValue;
-import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
@@ -32,7 +25,6 @@ import com.gwtplatform.mvp.client.annotations.ContentSlot;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
-import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
@@ -41,10 +33,8 @@ import com.gwtplatform.mvp.client.proxy.RevealRootPopupContentEvent;
 public class MainPresenter extends Presenter<IMainView, MainPresenter.MyProxy> {
 	private EventBus eventBus;
 	private final PlaceManager placeManager;
-	private Storage stockstore = null;
 	private List<Data> liste = new ArrayList<Data>(10);
 	private DataGrid dataGrid = null;
-	private DialogPresenter dialogPresenter;
 	private DeleteDialogPresenter deleteDialogPresenter;
 	@Inject
 	private DataService dataService;
@@ -73,11 +63,10 @@ public class MainPresenter extends Presenter<IMainView, MainPresenter.MyProxy> {
 
 	@Inject
 	public MainPresenter(EventBus eventBus, IMainView view, MyProxy proxy, PlaceManager placeManager,
-			DispatchAsync dispatcher, DialogPresenter dialogPresenter, DeleteDialogPresenter deleteDialogPresenter) {
+			DispatchAsync dispatcher, DeleteDialogPresenter deleteDialogPresenter) {
 		super(eventBus, view, proxy);
 		this.eventBus = eventBus;
 		this.placeManager = placeManager;
-		this.dialogPresenter = dialogPresenter;
 		this.deleteDialogPresenter = deleteDialogPresenter;
 	}
 
@@ -96,12 +85,10 @@ public class MainPresenter extends Presenter<IMainView, MainPresenter.MyProxy> {
 	protected void onBind() {
 		super.onBind();
 		initDataGrid();
-		refreshDataGrid();
 		gererEvenements();
 		enregistrerBoutonOuvPopup();
 
 	}
-
 
 	private void enregistrerBoutonOuvPopup() {
 		registerHandler(getView().getPopupButton().addClickHandler(new ClickHandler() {
@@ -113,30 +100,34 @@ public class MainPresenter extends Presenter<IMainView, MainPresenter.MyProxy> {
 		}));
 	}
 
-	
-
 	private void gererEvenements() {
-		registerHandler(eventBus.addHandler(UpdateLocalStorageEvent.TYPE, new InsertCompleteHandler() {
-			public void onInsertComplete(UpdateLocalStorageEvent event) {
-				refreshDataGrid();
+		registerHandler(eventBus.addHandler(UpdateDataGridEvent.TYPE, new UpdateDataGridHandler() {
+
+			@Override
+			public void onUpdateDataGrid(UpdateDataGridEvent event) {
+				appelServiceIndex(event.getQuery());
 			}
 		}));
-	}
+		registerHandler(eventBus.addHandler(SearchCompleteEvent.TYPE, new SearchCompleteHandler() {
 
+			@Override
+			public void onSearchComplete(SearchCompleteEvent event) {
+				refreshDataGrid();
+			}
+
+		}));
+
+	}
 
 	private void initDataGrid() {
-		idColumn.setSortable(true);
 
 		dataGrid = getView().getDataGrid();
-		dataGrid.addColumn(idColumn, "ID");
-		dataGrid.addColumn(valueColumn, "Value");
+		dataGrid.setSize("950px", "800px");
+		dataGrid.addColumn(idColumn, "K");
+		dataGrid.addColumn(valueColumn, "Highs");
 		dataGrid.setRowData(liste);
 		dataGrid.setColumnWidth(idColumn, "100px");
-		dataGrid.setColumnWidth(valueColumn, "300px");
-	}
-
-	private void openPopup() {
-		RevealRootPopupContentEvent.fire(this, dialogPresenter);
+		dataGrid.setColumnWidth(valueColumn, "850px");
 	}
 
 	private void openPopupSupp() {
@@ -144,20 +135,15 @@ public class MainPresenter extends Presenter<IMainView, MainPresenter.MyProxy> {
 	}
 
 	private void refreshDataGrid() {
-		stockstore = Storage.getLocalStorageIfSupported();
-		if (stockstore != null) {
-			liste.clear();
-			for (int i = 0; i < stockstore.getLength(); i++) {
-				String key = stockstore.key(i);
-				String value = stockstore.getItem(key);
-				liste.add(new Data(key, value));
-			}
-			dataGrid.setRowData(liste);			
-			getView().getPanel1().setVisible(true);
-
-		}
+		dataGrid.setRowData(liste);
+		getView().getPanel1().setVisible(true);
 		int hauteur = 35 + (25 * liste.size());
-		dataGrid.setSize("400px", String.valueOf(hauteur) + "px");
+		//dataGrid.setSize("400px", String.valueOf(hauteur) + "px");
 	}
 
+	private void appelServiceIndex(String query) {
+		liste.clear();
+		dataService.getDataIndex(liste, query);
+		dataGrid.setRowData(liste);
+	}
 }

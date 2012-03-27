@@ -7,7 +7,7 @@
 
 	<g:DialogBox modal="true" width="500px" height="245px">
 		<g:caption>
-			<b>Supprimer des données du localStorage</b>
+			<b>Popup de recherche</b>
 		</g:caption>
 		<g:HTMLPanel width="460px" height="199px">
 			<g:LayoutPanel width="460px" height="180px">
@@ -15,7 +15,7 @@
 					<g:VerticalPanel width="460px" height="40px">
 						<g:HorizontalPanel width="323px"
 							verticalAlignment="ALIGN_MIDDLE">
-							<g:Label text="Clé à supprimer:" horizontalAlignment="ALIGN_RIGHT"
+							<g:Label text="Rechercher:" horizontalAlignment="ALIGN_RIGHT"
 								styleName="gwt-RichTextToolbar" />
 							<g:SuggestBox ui:field="autoCompleteBox" />
 						</g:HorizontalPanel>

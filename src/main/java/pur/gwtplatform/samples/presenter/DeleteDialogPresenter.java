@@ -1,14 +1,21 @@
 package pur.gwtplatform.samples.presenter;
 
-import pur.gwtplatform.samples.events.UpdateLocalStorageEvent;
-import pur.gwtplatform.samples.events.UpdateLocalStorageEvent.InsertCompleteHandler;
+import java.util.ArrayList;
+import java.util.List;
+
+import pur.gwtplatform.samples.events.DicoCompleteEvent;
+import pur.gwtplatform.samples.events.DicoCompleteEvent.InsertCompleteHandler;
+import pur.gwtplatform.samples.events.UpdateDataGridEvent;
+import pur.gwtplatform.samples.model.Data;
+import pur.gwtplatform.samples.services.DataService;
 import pur.gwtplatform.samples.views.IDeleteDialogView;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
@@ -19,6 +26,9 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 public class DeleteDialogPresenter extends PresenterWidget<IDeleteDialogView> {
 	private EventBus eventBus;
 	private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+	List<Data> array = new ArrayList<Data>();
+	@Inject
+	private DataService dataService;
 
 	@Inject
 	public DeleteDialogPresenter(final EventBus eventBus, final IDeleteDialogView view) {
@@ -49,32 +59,35 @@ public class DeleteDialogPresenter extends PresenterWidget<IDeleteDialogView> {
 				new SelectionHandler<SuggestOracle.Suggestion>() {
 					@Override
 					public void onSelection(SelectionEvent<Suggestion> event) {
-						String value = event.getSelectedItem().getReplacementString();
-						Storage stockstore = Storage.getLocalStorageIfSupported();
-						if (stockstore != null) {
-							stockstore.removeItem(value);
-							eventBus.fireEvent(new UpdateLocalStorageEvent());
-							// refreshAutoCompBox();
-						}
+						String query = event.getSelectedItem().getReplacementString();
+						eventBus.fireEvent(new UpdateDataGridEvent(query));
 					}
 				}));
+
+		registerHandler(getView().getAutoCompleteBox().addKeyPressHandler(new KeyPressHandler() {
+
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				String texte = getView().getAutoCompleteBox().getText();
+				if (texte.length() > 1) {
+					dataService.getDataDico(array, texte);
+				}
+			}
+		}));
+
 	}
 
 	private void refreshAutoCompBox() {
 		oracle = (MultiWordSuggestOracle) getView().getAutoCompleteBox().getSuggestOracle();
-		Storage stockstore = Storage.getLocalStorageIfSupported();
-		if (stockstore != null) {
-			oracle.clear();
-			for (int i = 0; i < stockstore.getLength(); i++) {
-				String key = stockstore.key(i);
-				oracle.add(key);
-			}
+		oracle.clear();
+		for (Data data : array) {
+			oracle.add(data.getKey());
 		}
 	}
 
 	private void gererEvenements() {
-		registerHandler(eventBus.addHandler(UpdateLocalStorageEvent.TYPE, new InsertCompleteHandler() {
-			public void onInsertComplete(UpdateLocalStorageEvent event) {
+		registerHandler(eventBus.addHandler(DicoCompleteEvent.TYPE, new InsertCompleteHandler() {
+			public void onInsertComplete(DicoCompleteEvent event) {
 				refreshAutoCompBox();
 			}
 		}));

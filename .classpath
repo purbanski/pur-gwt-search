@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/java"/>
 	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
 	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/com.springsource.javax.servlet/2.5.0/com.springsource.javax.servlet-2.5.0.jar" sourcepath="M2_REPO/javax/servlet/com.springsource.javax.servlet/2.5.0/com.springsource.javax.servlet-2.5.0-sources.jar"/>
@@ -27,6 +28,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-xc/1.8.1/jackson-xc-1.8.1.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-xc/1.8.1/jackson-xc-1.8.1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson-xml-databind/0.6.0/jackson-xml-databind-0.6.0.jar" sourcepath="M2_REPO/com/fasterxml/jackson-xml-databind/0.6.0/jackson-xml-databind-0.6.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/jakarta-regexp/jakarta-regexp/1.4/jakarta-regexp-1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.2/junit-4.8.2.jar" sourcepath="M2_REPO/junit/junit/4.8.2/junit-4.8.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16.jar" sourcepath="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-analyzers/3.5.0/lucene-analyzers-3.5.0.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-analyzers/3.5.0/lucene-analyzers-3.5.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-core/3.5.0/lucene-core-3.5.0.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-core/3.5.0/lucene-core-3.5.0-sources.jar"/>
@@ -42,6 +44,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/springframework/org.springframework.core/3.1.0.RELEASE/org.springframework.core-3.1.0.RELEASE.jar" sourcepath="M2_REPO/org/springframework/org.springframework.core/3.1.0.RELEASE/org.springframework.core-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/org.springframework.expression/3.1.0.RELEASE/org.springframework.expression-3.1.0.RELEASE.jar" sourcepath="M2_REPO/org/springframework/org.springframework.expression/3.1.0.RELEASE/org.springframework.expression-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/org.springframework.oxm/3.1.0.RELEASE/org.springframework.oxm-3.1.0.RELEASE.jar" sourcepath="M2_REPO/org/springframework/org.springframework.oxm/3.1.0.RELEASE/org.springframework.oxm-3.1.0.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/org.springframework.test/3.1.0.RELEASE/org.springframework.test-3.1.0.RELEASE.jar" sourcepath="M2_REPO/org/springframework/org.springframework.test/3.1.0.RELEASE/org.springframework.test-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/org.springframework.web/3.1.0.RELEASE/org.springframework.web-3.1.0.RELEASE.jar" sourcepath="M2_REPO/org/springframework/org.springframework.web/3.1.0.RELEASE/org.springframework.web-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/org.springframework.web.portlet/3.1.0.RELEASE/org.springframework.web.portlet-3.1.0.RELEASE.jar" sourcepath="M2_REPO/org/springframework/org.springframework.web.portlet/3.1.0.RELEASE/org.springframework.web.portlet-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/org.springframework.web.servlet/3.1.0.RELEASE/org.springframework.web.servlet-3.1.0.RELEASE.jar" sourcepath="M2_REPO/org/springframework/org.springframework.web.servlet/3.1.0.RELEASE/org.springframework.web.servlet-3.1.0.RELEASE-sources.jar"/>

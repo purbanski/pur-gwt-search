@@ -9,12 +9,24 @@
 	<version>0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>pur-gwt-search</name>
-<properties>
+	<properties>
 		<org.springframework.version>3.1.0.RELEASE</org.springframework.version>
 		<lucene.version>3.5.0</lucene.version>
 	</properties>
 	<dependencies>
-	<dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>org.springframework.test</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
 			<version>${lucene.version}</version>
@@ -34,8 +46,8 @@
 			<artifactId>lucene-highlighter</artifactId>
 			<version>${lucene.version}</version>
 		</dependency>
-	
-	
+
+
 		<!-- Core utilities used by other modules. Define this if you use Spring 
 			Utility APIs (org.springframework.core.*/org.springframework.util.*) -->
 		<dependency>
@@ -88,13 +100,13 @@
 			<version>${org.springframework.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-<dependency>
+		<dependency>
 			<groupId>com.fasterxml</groupId>
 			<artifactId>jackson-xml-databind</artifactId>
 			<version>0.6.0</version>
 		</dependency>
-		
-				<dependency>
+
+		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-analyzers</artifactId>
 			<version>${lucene.version}</version>
@@ -139,7 +151,7 @@
 			<artifactId>jackson-xc</artifactId>
 			<version>1.8.1</version>
 		</dependency>
-		
+
 
 		<dependency>
 			<groupId>org.fusesource.restygwt</groupId>
@@ -227,7 +239,7 @@
 		</dependency>
 	</dependencies>
 
-	<repositories>	
+	<repositories>
 		<!-- Repo for RestyGWT -->
 		<repository>
 			<id>fusesource-nexus-snapshots</id>
@@ -375,9 +387,9 @@
 			<name>Maven Plugin Repository</name>
 			<url>http://repo1.maven.org/maven2</url>
 		</pluginRepository>
-		
-		
-		
+
+
+
 	</pluginRepositories>
 
 	<build>
@@ -393,39 +405,39 @@
 		<outputDirectory>${basedir}/target/${project.name}/WEB-INF/classes
                 </outputDirectory>
 		<plugins>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-war-plugin</artifactId> -->
-<!-- 				<version>2.0.2</version> -->
-<!-- 				<configuration> -->
-<!-- 					<warSourceDirectory>WebContent</warSourceDirectory> -->
-<!-- 					<webappDirectory>${project.build.directory}/webapp</webappDirectory> -->
-<!-- 					<webXml>WebContent/WEB-INF/web.xml</webXml> -->
-<!-- 					<warSourceExcludes>WEB-INF/lib/*.jar</warSourceExcludes> -->
-<!-- 					<webResources> -->
-<!-- 						<resource> -->
-<!-- 							this is relative to the pom.xml directory -->
-<!-- 							<directory>${basedir}/paramDev</directory> -->
-<!-- 							<targetPath>WEB-INF/classes</targetPath> -->
-<!-- 						</resource> -->
-<!-- 						<resource> -->
-<!-- 							this is relative to the pom.xml directory -->
-<!-- 							<directory>${basedir}/src/main/java</directory> -->
-<!-- 							<includes> -->
-<!-- 								<include>**/*.properties</include> -->
-<!-- 								<include>**/*.xml</include> -->
-<!-- 							</includes> -->
-<!-- 							<targetPath>WEB-INF/classes</targetPath> -->
-<!-- 						</resource> -->
-<!-- 					</webResources> -->
-<!-- 					<archive> -->
-<!-- 						<manifest> -->
-<!-- 							<addClasspath>true</addClasspath> -->
-<!-- 							<classpathPrefix>lib/</classpathPrefix> -->
-<!-- 						</manifest> -->
-<!-- 					</archive> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-war-plugin</artifactId> -->
+			<!-- <version>2.0.2</version> -->
+			<!-- <configuration> -->
+			<!-- <warSourceDirectory>WebContent</warSourceDirectory> -->
+			<!-- <webappDirectory>${project.build.directory}/webapp</webappDirectory> -->
+			<!-- <webXml>WebContent/WEB-INF/web.xml</webXml> -->
+			<!-- <warSourceExcludes>WEB-INF/lib/*.jar</warSourceExcludes> -->
+			<!-- <webResources> -->
+			<!-- <resource> -->
+			<!-- this is relative to the pom.xml directory -->
+			<!-- <directory>${basedir}/paramDev</directory> -->
+			<!-- <targetPath>WEB-INF/classes</targetPath> -->
+			<!-- </resource> -->
+			<!-- <resource> -->
+			<!-- this is relative to the pom.xml directory -->
+			<!-- <directory>${basedir}/src/main/java</directory> -->
+			<!-- <includes> -->
+			<!-- <include>**/*.properties</include> -->
+			<!-- <include>**/*.xml</include> -->
+			<!-- </includes> -->
+			<!-- <targetPath>WEB-INF/classes</targetPath> -->
+			<!-- </resource> -->
+			<!-- </webResources> -->
+			<!-- <archive> -->
+			<!-- <manifest> -->
+			<!-- <addClasspath>true</addClasspath> -->
+			<!-- <classpathPrefix>lib/</classpathPrefix> -->
+			<!-- </manifest> -->
+			<!-- </archive> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -553,7 +565,7 @@
 						<scope>compile</scope>
 					</dependency>
 				</dependencies>
-				
+
 				<configuration>
 					<projectNameTemplate>${project.name}</projectNameTemplate>
 					<useProjectReferences>true</useProjectReferences>
@@ -562,7 +574,7 @@
 					<downloadSources>true</downloadSources>
 					<workspace>${workspace}</workspace>
 					<useProjectReferences>true</useProjectReferences>
-<!-- 					<useProjectReferences>false</useProjectReferences> -->
+					<!-- <useProjectReferences>false</useProjectReferences> -->
 					<additionalBuildcommands>
 						<buildcommand>com.google.gwt.eclipse.core.gwtProjectValidator</buildcommand>
 					</additionalBuildcommands>

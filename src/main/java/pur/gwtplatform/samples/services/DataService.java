@@ -1,52 +1,67 @@
 package pur.gwtplatform.samples.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import pur.gwtplatform.samples.events.UpdateLocalStorageEvent;
+import pur.gwtplatform.samples.events.DicoCompleteEvent;
+import pur.gwtplatform.samples.events.SearchCompleteEvent;
 import pur.gwtplatform.samples.model.Data;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
-import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Window;
+import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
 public class DataService {
-	// private EventBus eventBus;
-	JSONArray array = new JSONArray();
-	List<Data> liste   = new ArrayList<Data>();
-	// public DataService(EventBus eventBus) {
-	// this.eventBus = eventBus;
-	// }
+	@Inject
+	private EventBus eventBus;
+	
+	private JSONArray array = new JSONArray();
+
 	public DataService() {
 	}
 
-	public List<Data> getData() {
-
-		Resource resource = new Resource("http://localhost:8080/pur/data/mp/get");
+	public void getDataDico(final List<Data> liste, String query) {
+		Resource resource = new Resource("/rest/mp/dico/" +query + ".json");
 		resource.get().send(new JsonCallback() {
 			public void onSuccess(Method method, JSONValue response) {
-				JSONObject keys = response.isObject().get("keys").isObject();
-				array = keys.get("keys").isArray();
+				JSONObject keys = response.isObject().get("listIndexDico").isObject();
+				array = keys.get("result").isArray();
 				for (int i = 0; i < array.size(); i++) {
-					JSONObject jsObject = array.get(i).isObject();
-					String value = jsObject.get("value").isString().stringValue();
-					String key = jsObject.get("key").isString().stringValue();
+					String value = array.get(i).isString().stringValue();
+					String key = value;
 					liste.add(new Data(key, value));
 				}
-				// eventBus.fireEvent(new UpdateLocalStorageEvent());
+				eventBus.fireEvent(new DicoCompleteEvent());
 			}
-
 			public void onFailure(Method method, Throwable exception) {
 				Window.alert("onFailure: " + exception);
 			}
 		});
-		return liste;
+	}
+	
+	public void getDataIndex(final List<Data> liste, String query) {
+		Resource resource = new Resource("/rest/mp/search/" +query + ".json");
+		resource.get().send(new JsonCallback() {
+			public void onSuccess(Method method, JSONValue response) {
+				JSONObject keys = response.isObject().get("listSearchResult").isObject();
+				array = keys.get("listSearchResult").isArray();
+				for (int i = 0; i < array.size(); i++) {
+					JSONObject jsObject = array.get(i).isObject();
+					String value = jsObject.get("highs").isString().stringValue();
+					String key = jsObject.get("k").isString().stringValue();
+					liste.add(new Data(key, value));
+				}
+				eventBus.fireEvent(new SearchCompleteEvent());
+			}
+			public void onFailure(Method method, Throwable exception) {
+				Window.alert("onFailure: " + exception);
+			}
+		});
 	}
 }

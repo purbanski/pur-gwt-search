@@ -6,17 +6,17 @@
 	ui:generateKeys='com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator'
 	ui:generateLocales='default' xmlns:p1="urn:import:com.google.gwt.user.cellview.client">
 
-	<g:HTMLPanel width="850px" height="850px">
-		<g:LayoutPanel width="850px" height="819px">
-			<g:layer left="102px" width="437px" top="136px" height="433px">
-				<g:VerticalPanel ui:field="panel1" borderWidth="2">
-					<g:Label text="Données stoquées" ui:field="labelStock" styleName="gwt-RichTextToolbar"/>
-					<p1:DataGrid width="400px" height="300px" ui:field="dataGrid" title="Les données stoquées dans le Local Storage"/>
-				</g:VerticalPanel>
-			</g:layer>
+	<g:HTMLPanel width="950px" height="950px">
+		<g:LayoutPanel width="950px" height="950px">
 			<g:layer left="102px" width="343px" top="17px" height="342px">
 				<g:VerticalPanel spacing="10" borderWidth="0">
 					<g:Button text="Ouvrir popup de recherche" ui:field="popupButton" width="190px"/>
+				</g:VerticalPanel>
+			</g:layer>
+			<g:layer left="26px" width="982px" top="67px" height="883px">
+				<g:VerticalPanel ui:field="panel1" borderWidth="2" width="950px" height="850px">
+					<g:Label text="Les résultats de la recherche" ui:field="labelStock" styleName="gwt-RichTextToolbar"/>
+					<p1:DataGrid width="950px" height="850px" ui:field="dataGrid" title="Les résultats de la recherche"/>
 				</g:VerticalPanel>
 			</g:layer>
 		</g:LayoutPanel>

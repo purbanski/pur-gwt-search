@@ -17,20 +17,14 @@
 package pur.gwtplatform.samples.modules;
 
 import pur.gwtplatform.samples.presenter.DeleteDialogPresenter;
-import pur.gwtplatform.samples.presenter.DialogPresenter;
-import pur.gwtplatform.samples.presenter.InsertPresenter;
 import pur.gwtplatform.samples.presenter.MainPresenter;
-import pur.gwtplatform.samples.views.DialogView;
+import pur.gwtplatform.samples.views.DeleteDialogView;
 import pur.gwtplatform.samples.views.IDeleteDialogView;
-import pur.gwtplatform.samples.views.IDialogView;
 import pur.gwtplatform.samples.views.IMainView;
-import pur.gwtplatform.samples.views.IInsertView;
-import pur.gwtplatform.samples.views.InsertView;
 import pur.gwtplatform.samples.views.MainView;
 
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
-import pur.gwtplatform.samples.views.DeleteDialogView;
 
 public class Module extends AbstractPresenterModule {
 
@@ -41,10 +35,8 @@ public class Module extends AbstractPresenterModule {
 
 		// Presenters
 		bindPresenter(MainPresenter.class, IMainView.class, MainView.class, MainPresenter.MyProxy.class);
-		bindPresenter(InsertPresenter.class, IInsertView.class, InsertView.class, InsertPresenter.MyProxy.class);
 		// bind des popups
-		bindSingletonPresenterWidget(DialogPresenter.class, IDialogView.class, DialogView.class);
 		bindSingletonPresenterWidget(DeleteDialogPresenter.class, IDeleteDialogView.class, DeleteDialogView.class);
-		
+
 	}
 }
