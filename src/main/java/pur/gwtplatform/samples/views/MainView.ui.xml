@@ -7,16 +7,21 @@
 	ui:generateLocales='default' xmlns:p1="urn:import:com.google.gwt.user.cellview.client">
 
 	<g:HTMLPanel width="1050px" height="1050px">
-		<g:LayoutPanel width="1050px" height="950px">
+		<g:LayoutPanel width="1245px" height="950px">
 			<g:layer left="102px" width="343px" top="17px" height="342px">
-				<g:VerticalPanel spacing="10" borderWidth="0">
-					<g:Button text="Ouvrir popup de recherche" ui:field="popupButton" width="190px"/>
-				</g:VerticalPanel>
+				<g:VerticalPanel spacing="10" borderWidth="0"/>
 			</g:layer>
-			<g:layer left="26px" width="982px" top="67px" height="883px">
+			<g:layer left="26px" top="67px" bottom="8px" right="114px">
 				<g:VerticalPanel ui:field="panel1" borderWidth="2" width="1050px" height="850px">
-					<g:Label text="Les résultats de la recherche" ui:field="labelStock" styleName="gwt-RichTextToolbar"/>
-					<p1:DataGrid width="1050px" height="850px" ui:field="dataGrid" title="Les résultats de la recherche"/>
+					<g:HorizontalPanel horizontalAlignment="ALIGN_CENTER">
+						<g:Cell verticalAlignment="ALIGN_MIDDLE">
+							<g:Label text="Les résultats de la recherche" ui:field="labelStock" styleName="gwt-RichTextToolbar" width="854px" height="42px"/>
+						</g:Cell>
+						<g:Button text="Ouvrir popup de recherche" ui:field="popupButton" width="190px" height="49px"/>
+					</g:HorizontalPanel>
+					<g:Cell verticalAlignment="ALIGN_MIDDLE">
+						<p1:DataGrid width="1050px" height="850px" ui:field="dataGrid" title="Les résultats de la recherche"/>
+					</g:Cell>
 				</g:VerticalPanel>
 			</g:layer>
 		</g:LayoutPanel>

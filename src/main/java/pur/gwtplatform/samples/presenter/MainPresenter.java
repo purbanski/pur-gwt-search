@@ -125,8 +125,8 @@ public class MainPresenter extends Presenter<IMainView, MainPresenter.MyProxy> {
 
 		dataGrid = getView().getDataGrid();
 		dataGrid.setSize("1050px", "800px");
-		dataGrid.addColumn(idColumn, "Sous-catégorie NAF3142");
-		dataGrid.addColumn(valueColumn, "Libellé NAF575");
+		dataGrid.addColumn(idColumn, "Sous-cat\u00E9gorie NAF3142");
+		dataGrid.addColumn(valueColumn, "Libell\u00E9 NAF575");
 		dataGrid.setRowData(liste);
 		dataGrid.setColumnWidth(idColumn, "250px");
 		dataGrid.setColumnWidth(valueColumn, "800px");

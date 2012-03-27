@@ -69,7 +69,7 @@ public class DeleteDialogPresenter extends PresenterWidget<IDeleteDialogView> {
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
 				String texte = getView().getAutoCompleteBox().getText();
-				if (texte.length() > 1) {
+				if (texte.length() > 0) {
 					dataService.getDataDico(array, texte);
 				}
 			}
