@@ -8,10 +8,7 @@
 
 	<g:HTMLPanel width="1050px" height="1050px">
 		<g:LayoutPanel width="1245px" height="950px">
-			<g:layer left="102px" width="343px" top="17px" height="342px">
-				<g:VerticalPanel spacing="10" borderWidth="0"/>
-			</g:layer>
-			<g:layer left="26px" top="67px" bottom="8px" right="114px">
+			<g:layer left="10px" top="18px" bottom="25px" right="179px">
 				<g:VerticalPanel ui:field="panel1" borderWidth="2" width="1050px" height="850px">
 					<g:HorizontalPanel horizontalAlignment="ALIGN_CENTER">
 						<g:Cell verticalAlignment="ALIGN_MIDDLE">

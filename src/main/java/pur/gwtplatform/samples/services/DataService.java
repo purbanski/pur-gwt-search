@@ -48,7 +48,7 @@ public class DataService {
 	}
 	
 	public void getDataIndex(final List<ElementResult> liste, String query) {
-		Resource resource = new Resource("/rest/mp/search/" +query + ".json");
+		Resource resource = new Resource("/rest/mp/search/" +query + ".json");		
 		resource.get().send(new JsonCallback() {
 			public void onSuccess(Method method, JSONValue response) {
 				JSONObject keys = response.isObject().get("listSearchResult").isObject();
@@ -56,9 +56,8 @@ public class DataService {
 				for (int i = 0; i < array.size(); i++) {
 					ElementResult elementResult = new ElementResult();
 					JSONObject jsObject = array.get(i).isObject();
-					elementResult.setL(jsObject.get("l").isString().stringValue());
-					elementResult.setK(jsObject.get("k").isString().stringValue());
-				//	elementResult.setK(jsObject.get("h").isString().stringValue());
+					elementResult.setL(jsObject.get("highs").isString().stringValue());
+					elementResult.setK(jsObject.get("k").isString().stringValue());				
 					liste.add(elementResult);
 				}
 				eventBus.fireEvent(new SearchCompleteEvent());

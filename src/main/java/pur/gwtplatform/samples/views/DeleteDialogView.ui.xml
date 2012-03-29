@@ -17,7 +17,7 @@
 							verticalAlignment="ALIGN_MIDDLE">
 							<g:Label text="Rechercher:" horizontalAlignment="ALIGN_RIGHT"
 								styleName="gwt-RichTextToolbar" />
-							<g:SuggestBox ui:field="autoCompleteBox" />
+							<g:SuggestBox ui:field="autoCompleteBox" focus="true" />
 						</g:HorizontalPanel>
 					</g:VerticalPanel>
 				</g:layer>
